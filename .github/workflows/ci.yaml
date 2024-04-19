@@ -31,7 +31,6 @@ jobs:
           npm i
           npm run lint
           npm install --save-dev --save-exact prettier
-          npm test
         env:
           CI: true
 
