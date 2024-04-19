@@ -1,0 +1,68 @@
+/* CSS */
+/* Reset default margin and padding */
+body, h1, h2, h3, p, ul, li {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Set default font family and size */
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+.allposts {
+  /* padding-left: 660px; */
+  padding-bottom: 55px;
+  text-align: center;
+}
+
+/* Style main content */
+.content {
+  padding: 20px;
+}
+
+.page-container {
+  display: flex;
+  justify-content: center;
+}
+
+/* Style list */
+ul {
+  list-style: none;
+}
+
+/* Style list item */
+li {
+  margin-bottom: 20px;
+}
+
+/* Style link */
+.link {
+  text-decoration: none;
+  color: #007bff;
+}
+
+/* Style post container */
+.post-container {
+  max-width: 900px;
+  margin: 10px auto; /* Add margin to create space between post containers */
+  border: 5px solid #380788; /* Border color */
+  padding: 5px 53px 10px 522px;
+  padding-right: 500px;
+  border-radius: 10px;
+}
+
+
+/* Style post title */
+.post-title {
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+/* Style post author */
+.post-author {
+  margin-bottom: 10px;
+  align-content: space-around;
+}

@@ -1,0 +1,70 @@
+/* CSS */
+/* Reset default margin and padding */
+body, h1, h2, h3, p, ul, li, form, input, textarea,button {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Set default font family and size */
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+  }
+  
+  /* Style post container */
+  .postnmm-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  /* Style post title */
+  .post-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  /* Style post content */
+  .post-content {
+    margin-bottom: 15px;
+  }
+  
+  /* Style post author */
+  .post-author {
+    font-style: italic;
+  }
+  
+  /* Style delete button */
+  .delete-button {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .delete-button:hover {
+    background-color: #bd2130;
+  }
+  
+  /* Style update button */
+  /* .update-button {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .update-button:hover {
+    background-color: #218838;
+  } */
+  

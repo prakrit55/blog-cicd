@@ -1,0 +1,46 @@
+/* CSS */
+/* Reset default margin and padding */
+body, h1, h2, h3, p, ul, li, a {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  /* Set default font family and size */
+  body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+  }
+  
+  /* Style success page container */
+  .success-page {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  /* Style success page heading */
+  .success-heading {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  /* Style success page text */
+  .success-text {
+    margin-bottom: 20px;
+  }
+  
+  /* Style link */
+  .success-link {
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  .success-link:hover {
+    text-decoration: underline;
+  }
+  

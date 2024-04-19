@@ -1,0 +1,70 @@
+/* Reset default margin and padding */
+body {
+  margin: 0;
+  padding: 0;
+}
+
+/* Set default font family and size */
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+}
+
+/* Style header */
+header {
+  background-color: #0e172f;
+  color: #fff;
+  padding: 10px;
+}
+
+.blog-title {
+  margin-right: 20px;
+  margin-bottom: 20px; 
+  padding-top: 20;
+}
+
+.create-button {
+  margin-right: 20px;
+  padding-left: 50px; /* Adjust the margin as needed */
+}
+
+/* Style navigation */
+nav ul {
+  list-style: none;
+}
+
+/* nav ul li {
+  display: inline;
+  margin-right: 10px;
+} */
+
+nav ul li a {
+  color: #fff;
+  text-decoration: aquamarine;
+}
+
+/* Style main content */
+main {
+  padding-bottom: 240px;
+  /* padding-left: 650px; */
+}
+
+/* Style footer */
+footer {
+  background-color: #0e172f;
+  color: #fff;
+  padding: 66px 60px;
+  text-align: center;
+  align-self: flex-end;
+}
+
+/* Add more styles as needed */
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+  /* Example: Adjust navigation for smaller screens */
+  nav ul li {
+    display: block;
+    margin: 10px 0;
+  }
+}

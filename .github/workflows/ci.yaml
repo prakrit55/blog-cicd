@@ -1,0 +1,78 @@
+name: BLog CI
+
+on:
+  pull_request:
+    branches: 
+    - 'main'
+
+jobs:
+  prepare_ci_run:
+    name: Prepare CI Run
+    runs-on: ubuntu-latest
+    outputs:
+      GIT_SHA: ${{ steps.extract_branch.outputs.GIT_SHA }}
+      BRANCH: ${{ steps.extract_branch.outputs.BRANCH }}
+      BRANCH_SLUG: ${{ steps.extract_branch.outputs.BRANCH_SLUG }}
+      DATETIME: ${{ steps.get_datetime.outputs.DATETIME }}
+      BUILD_TIME: ${{ steps.get_datetime.outputs.BUILD_TIME }}
+      NON_FORKED_AND_NON_ROBOT_RUN: ${{ steps.get_run_type.outputs.NON_FORKED_AND_NON_ROBOT_RUN }}
+
+
+  frontend-test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./my-blog-app
+    strategy:
+      matrix:
+        node-version: [20.x]
+        architecture: [x64]
+    steps:
+      - name: Check-out git repository  
+        uses: actions/checkout@v4
+
+      - name: USE NODEJS ${{ matrix.node-version }} - ${{ matrix.architecture }}
+        uses: actions/setup-node@v4
+
+      - name: Install project dependencies 
+        working-directory: ./my-blog-app
+        run: |
+          npm i
+          npm run lint
+          npm install --save-dev --save-exact prettier
+          npm run prettier
+          npm test
+        env:
+          CI: true
+
+      - name: Build
+        run: npm run build
+        working-directory: ./my-blog-app
+  
+  frontend-security:
+    needs: frontend-test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./quiz-app
+    steps:
+      - uses: actions/checkout@master
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        continue-on-error: true # To make sure that SARIF upload gets called
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+          
+      - name: Install Snyk CLI
+        uses: snyk/actions/setup@master
+        with:
+          version: latest
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}  
+
+      - name: Snyk Authenticate    
+        run: snyk auth ${{ secrets.SNYK_TOKEN }}
+
+      - name: Snyk Code Test
+        run: snyk code test --all-projects
+        continue-on-error: true
