@@ -1,4 +1,4 @@
-name: BLog CI
+name: ci
 
 on:
   push:
