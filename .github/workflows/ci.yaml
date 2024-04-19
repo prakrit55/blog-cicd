@@ -1,9 +1,12 @@
 name: BLog CI
 
 on:
+  push:
+    branches:
+      - main
   pull_request:
     branches: 
-    - 'main'
+    - main
 
 jobs:
   prepare_ci_run:
