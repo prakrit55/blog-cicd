@@ -149,10 +149,17 @@ jobs:
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ap-south-1
     
+    - name: Login to ECR
+      id: ecr
+      uses: jwalton/gh-ecr-login@v1
+      with:
+        access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        region: ap-south-1
+    
     - name: Build backend Docker image
       working-directory: ./backend-blog
       run: |
-        aws ecr get-login-password --region ap-south-1 | sudo docker login --username ${{ secrets.ECR_USERNAME }} --password-stdin ${{ secrets.ECR_PASSWORD }}.dkr.ecr.ap-south-1.amazonaws.com
         docker build -t demo-app-ecr-repo .
         docker tag demo-app-ecr-repo:latest ${{ secrets.ECR_PASSWORD }}.dkr.ecr.ap-south-1.amazonaws.com/demo-app-ecr-repo:latest  
 
