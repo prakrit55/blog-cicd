@@ -164,7 +164,6 @@ jobs:
         docker tag demo-app-ecr-repo:latest ${{ secrets.ECR_PASSWORD }}.dkr.ecr.ap-south-1.amazonaws.com/demo-app-ecr-repo:latest
         docker push ${{ secrets.ECR_PASSWORD }}.dkr.ecr.ap-south-1.amazonaws.com/demo-app-ecr-repo:latest
         docker image ls
-        docker pull ${{ secrets.ECR_PASSWORD }}/demo-app-ecr-repo:latest  
 
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master
