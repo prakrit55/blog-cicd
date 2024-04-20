@@ -1,8 +1,8 @@
-FROM node:18 as builder
+FROM node:20 as builder
 
 WORKDIR /build
 
-COPY package*.json .
+COPY package.json package-lock.json ./
 RUN npm install
 
 COPY src/ src/
@@ -13,12 +13,13 @@ RUN npm run build
 
 
 
-FROM node:18 as runner
+FROM node:20 as runner
 
 WORKDIR /app
 
-COPY  --from=builder build/package*.json /app
-COPY --from=builder build/dist /app/dist
+COPY --from=builder /build/node_modules/ /app/node_modules/
+COPY --from=builder /build/package.json /app
+COPY --from=builder /build/dist /app/dist
 
 EXPOSE 5000
 
