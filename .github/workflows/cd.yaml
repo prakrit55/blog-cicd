@@ -87,7 +87,7 @@ jobs:
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master
       with:
-        image-ref: '${{ secrets.ECR_PASSWORD }}.dkr.ecr.ap-south-1.amazonaws.com//demo-app-ecr-repo'
+        image-ref: '${{ secrets.ECR_PASSWORD }}.dkr.ecr.ap-south-1.amazonaws.com/demo-app-ecr-repo'
         format: 'sarif'
         output: 'trivy-results.sarif'
         severity: 'CRITICAL,HIGH' 
@@ -101,7 +101,7 @@ jobs:
       run: snyk auth ${{ secrets.SNYK_TOKEN }}
 
     - name: Snyk Container monitor
-      run: snyk container monitor ${{ secrets.ECR_PASSWORD }}.dkr.ecr.ap-south-1.amazonaws.com//demo-app-ecr-repo --file=Dockerfile   
+      run: snyk container monitor ${{ secrets.ECR_PASSWORD }}.dkr.ecr.ap-south-1.amazonaws.com/demo-app-ecr-repo --file=Dockerfile   
       working-directory: ./backend-blog
 
     - name: Run Snyk to check for vulnerabilities in the Docker image
