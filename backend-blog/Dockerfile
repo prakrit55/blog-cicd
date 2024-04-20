@@ -9,7 +9,7 @@ COPY src/ src/
 
 COPY tsconfig.json tsconfig.json
 
-RUN npm run build
+RUN npm run build 
 
 
 
