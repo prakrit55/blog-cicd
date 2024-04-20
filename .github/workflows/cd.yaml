@@ -41,7 +41,7 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     - name: Remove the build
-      run: rm -rf./build
+      run: rm -rf ./build
 
   backend-image:
     runs-on: ubuntu-latest
@@ -115,6 +115,5 @@ jobs:
 
     - name: Deploy service (ECS)
       run: |
-        aws ecs register-task-definition --family  ${{ secrets.TASK_FAMILY }} --container-definitions name=${{ secrets.TASK_NAME }},image=${{ secrets.ECR_PASSWORD }}.dkr.ecr.ap-south-1.amazonaws.com/demo-app-ecr-repo:latest
         aws ecs update-service --cluster ${{ secrets.CLUSTER }} --service ${{ secrets.SERVICE }} --task-definition ${{ secrets.TASK_FAMILY }} --region ap-south-1
 
