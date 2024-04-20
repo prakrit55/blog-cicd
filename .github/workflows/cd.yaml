@@ -35,10 +35,10 @@ jobs:
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     - name: Upload code to S3
-      uses: aws-actions/upload-s3@v2
-      with:
-        source: ./build/  # The source directory you want to upload
-        destination: s3://my-react-frontenddddtteerr/  # The S3 bucket path to upload to
+      run: aws s3 sync ./build/ s3://my-react-frontenddddtteerr/
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
     - name: Remove the build
       run: rm -rf./build
@@ -115,6 +115,6 @@ jobs:
 
     - name: Deploy service (ECS)
       run: |
-        aws ecs register-task-definition --family  ${{ secrets.TASK_FAMILY }} --container-definitions name=${{ secrets.TASK_NAME }},image=${{ secrets.ECR_PASSWORD }}/demo-app-ecr-repo:latest
+        aws ecs register-task-definition --family  ${{ secrets.TASK_FAMILY }} --container-definitions name=${{ secrets.TASK_NAME }},image=${{ secrets.ECR_PASSWORD }}.dkr.ecr.ap-south-1.amazonaws.com/demo-app-ecr-repo:latest
         aws ecs update-service --cluster ${{ secrets.CLUSTER }} --service ${{ secrets.SERVICE }} --task-definition ${{ secrets.TASK_FAMILY }} --region ap-south-1
 
