@@ -152,9 +152,9 @@ jobs:
     - name: Build backend Docker image
       working-directory: ./backend-blog
       run: |
-        aws ecr get-login-password --region ap-south-1 | sudo docker login --username ${{ secrets.ECR_USERNAME }} --password-stdin ${{ secrets.ECR_PASSWORD }}
+        aws ecr get-login-password --region ap-south-1 | sudo docker login --username ${{ secrets.ECR_USERNAME }} --password-stdin ${{ secrets.ECR_PASSWORD }}.dkr.ecr.ap-south-1.amazonaws.com
         docker build -t demo-app-ecr-repo .
-        docker tag demo-app-ecr-repo:latest ${{ secrets.ECR_PASSWORD }}/demo-app-ecr-repo:latest  
+        docker tag demo-app-ecr-repo:latest ${{ secrets.ECR_PASSWORD }}.dkr.ecr.ap-south-1.amazonaws.com/demo-app-ecr-repo:latest  
 
     - name: Run Trivy vulnerability scanner
       uses: aquasecurity/trivy-action@master
@@ -173,13 +173,13 @@ jobs:
       run: snyk auth ${{ secrets.SNYK_TOKEN }}
 
     - name: Snyk Container monitor
-      run: snyk container monitor ${{ secrets.ECR_PASSWORD }}/demo-app-ecr-repo --file=Dockerfile   
+      run: snyk container monitor ${{ secrets.ECR_PASSWORD }}.dkr.ecr.ap-south-1.amazonaws.com/demo-app-ecr-repo --file=Dockerfile   
       working-directory: ./backend-blog
 
     - name: Run Snyk to check for vulnerabilities in the Docker image
       uses: snyk/actions/docker@master
       with:
-        image: ${{ secrets.ECR_PASSWORD }}/demo-app-ecr-repo
+        image: ${{ secrets.ECR_PASSWORD }}.dkr.ecr.ap-south-1.amazonaws.com/demo-app-ecr-repo
         args: --file=backend/Dockerfile --severity-threshold=high
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
