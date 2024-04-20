@@ -143,7 +143,7 @@ jobs:
     - name: Build backend Docker image
       working-directory: ./backend-blog
       run: |
-        aws ecr get-login-password --region ap-south-1 | docker login --username ${{ secrets.ECR_USERNAME }}
+        aws ecr get-login-password --region ap-south-1 | sudo docker login --username ${{ secrets.ECR_USERNAME }} --password-stdin ${{ secrets.ECR_PASSWORD }}
         docker build -t demo-app-ecr-repo .
         docker tag demo-app-ecr-repo:latest ${{ secrets.ECR_PASSWORD }}/demo-app-ecr-repo:latest  
 
