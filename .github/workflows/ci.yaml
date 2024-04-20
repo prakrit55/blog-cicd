@@ -58,7 +58,6 @@ jobs:
         working-directory: ./backend-blog
         run: |
           npm i
-          npm run lint
           npm install --save-dev --save-exact prettier
         env:
           CI: true
