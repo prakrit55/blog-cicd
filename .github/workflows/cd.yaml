@@ -1,0 +1,103 @@
+name: cd
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  S3-update-code:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./my-blog-app
+    steps:
+    - name: Check-out git repository  
+      uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build code
+      run: npm run build  # Or your build command
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ap-south-1  # Specify your AWS region
+    
+    - name: Delete objects in S3 bucket
+      run: aws s3 rm s3://my-react-frontenddddtteerr/ --recursive
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+
+    - name: Upload code to S3
+      uses: aws-actions/upload-s3@v2
+      with:
+        source: ./build/  # The source directory you want to upload
+        destination: s3://my-react-frontenddddtteerr/  # The S3 bucket path to upload to
+
+    - name: Remove the build
+      run: rm -rf./build
+
+  backend-image:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read 
+      security-events: write 
+      actions: read
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: your-aws-region
+    
+    - name: Push backend Docker image
+      working-directory: ./backend-blog
+      run: |
+        aws ecr get-login-password --region ap-south-1 | docker login --username ${{ secrets.ECR_USERNAME }} --password-stdin ${{ secrets.ECR_PASSWORD }}
+        docker build -t demo-app-ecr-repo .
+        docker tag demo-app-ecr-repo:latest ${{ secrets.ECR_PASSWORD }}/demo-app-ecr-repo:latest
+        docker push ${{ secrets.ECR_PASSWORD }}/demo-app-ecr-repo:latest
+
+    - name: Run Trivy vulnerability scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        image-ref: '${{ secrets.ECR_PASSWORD }}/demo-app-ecr-repo'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+        severity: 'CRITICAL,HIGH' 
+        
+    - name: Install Snyk CLI
+      uses: snyk/actions/setup@master
+      with:
+        snyk-token: ${{ secrets.SNYK_TOKEN }}
+
+    - name: Snyk Authenticate    
+      run: snyk auth ${{ secrets.SNYK_TOKEN }}
+
+    - name: Snyk Container monitor
+      run: snyk container monitor ${{ secrets.ECR_PASSWORD }}/demo-app-ecr-repo --file=Dockerfile   
+      working-directory: ./backend-blog
+
+    - name: Run Snyk to check for vulnerabilities in the Docker image
+      uses: snyk/actions/docker@master
+      with:
+        image: ${{ secrets.ECR_PASSWORD }}/demo-app-ecr-repo
+        args: --file=backend-blog/Dockerfile --severity-threshold=high
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      continue-on-error: true
+
+    - name: Deploy service (ECS)
+      run: |
+        aws ecs register-task-definition --family  ${{ secrets.TASK_FAMILY }} --container-definitions name=${{ secrets.TASK_NAME }},image=${{ secrets.ECR_PASSWORD }}/demo-app-ecr-repo:latest
+        aws ecs update-service --cluster ${{ secrets.CLUSTER }} --service ${{ secrets.SERVICE }} --task-definition ${{ secrets.TASK_FAMILY }} --region ap-south-1
+
