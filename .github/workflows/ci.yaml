@@ -189,7 +189,7 @@ jobs:
       uses: snyk/actions/docker@master
       with:
         image: ${{ secrets.ECR_PASSWORD }}.dkr.ecr.ap-south-1.amazonaws.com/demo-app-ecr-repo
-        args: --file=backend/Dockerfile --severity-threshold=high
+        args: --file=backend-blog/Dockerfile --severity-threshold=high
       env:
         SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       continue-on-error: true 
