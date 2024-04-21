@@ -54,7 +54,7 @@ app.use(express.json()); // Parse JSON request bodies
 // Connect to MongoDB
 var uri = "mongodb+srv://prakrit55new:vL0mS2aZTZsUmzYX@cluster0.efaovxn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 mongoose.connect(uri)
-    .then(function () { return console.log("Connected to MongoDB..."); })
+    .then(function () { return console.log("Connected to MongoDB... "); })
     .catch(function (err) { return console.error("Could not connect to MongoDB...", err); });
 app.get('/api/posts', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var posts, error_1;
@@ -89,7 +89,7 @@ app.get('/api/posts/:id', function (req, res) { return __awaiter(void 0, void 0,
                 if (!updatedPost) {
                     return [2 /*return*/, res.status(404).json({ message: 'Post not found' })];
                 }
-                res.json(updatedPost);
+                res.status(200).json(updatedPost);
                 return [3 /*break*/, 3];
             case 2:
                 error_2 = _a.sent();
