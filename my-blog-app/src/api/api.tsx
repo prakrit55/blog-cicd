@@ -1,7 +1,7 @@
 // api.ts
 import axios from 'axios';
 
-const API_URL = 'https://2ufgmit7i9.execute-api.ap-south-1.amazonaws.com/api_gateway_staging';
+const API_URL = 'cc-demo-app-alb-1963131864.ap-south-1.elb.amazonaws.com/api';
 
 export const fetchPosts = async () => {
   const response = await axios.get<any[]>(`${API_URL}/api/posts`);
