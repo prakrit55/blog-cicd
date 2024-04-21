@@ -1,7 +1,7 @@
 // api.ts
 import axios from 'axios';
 
-const API_URL = 'cc-demo-app-alb-1963131864.ap-south-1.elb.amazonaws.com/api';
+const API_URL = 'cc-demo-app-alb-1963131864.ap-south-1.elb.amazonaws.com';
 
 export const fetchPosts = async () => {
   const response = await axios.get<any[]>(`${API_URL}/api/posts`);
