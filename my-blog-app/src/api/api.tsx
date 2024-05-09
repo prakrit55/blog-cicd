@@ -1,7 +1,7 @@
 // api.ts
 import axios from 'axios';
 
-const API_URL = 'http://cc-demo-app-alb-670050430.ap-south-1.elb.amazonaws.com/api';
+const API_URL = 'loadbalancer-url/api';
 
 export const fetchPosts = async () => {
   try {
