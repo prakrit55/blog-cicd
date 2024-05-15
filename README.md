@@ -74,6 +74,10 @@ The pipeline is a continuous integration and continuous deployment (CI/CD) setup
 
         - **Snyk Container Monitoring:** Monitors the container using Snyk and checks for vulnerabilities in the Docker image.
 
+![alt text](<assets/new2o.png>)
+
+![alt text](<assets/new3o.png>)
+
 
 # Conclusion
 
