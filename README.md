@@ -10,6 +10,8 @@ Welcome to the complete ci/cd project, here we will delve into the CI/CD automat
 
 It is a three tier application consists of the frontend, backend, and database.  It contains a frontend application based on react, typescript, css, html etc. and a backend application to handle the requsts from the user. The main motive of the project is to integrate CI/CD for the appplication, in order to tackle the challenges whenever there is changes in the code through pull requsts, push.
 
+# Procedure
+
 Let us dive into the steps to configure the whole CI/CD pipeline, keeping in mind the frontend code is present in the `my-blog-app` and the backend is in `backend-blog`.
 
 
@@ -71,5 +73,8 @@ The pipeline is a continuous integration and continuous deployment (CI/CD) setup
         - **Install and Authenticate Snyk:** Installs the Snyk CLI and authenticates with a provided token.
 
         - **Snyk Container Monitoring:** Monitors the container using Snyk and checks for vulnerabilities in the Docker image.
+
+
+# Conclusion
 
 The pipeline automates testing, security checks, and deployment tasks for both the frontend and backend parts of the application. The frontend and backend security jobs use Snyk to identify potential vulnerabilities, while the backend image job builds and pushes Docker images to ECR and then checks the images for vulnerabilities using both Trivy and Snyk.
