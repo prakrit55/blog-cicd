@@ -1,7 +1,7 @@
 # CI/CD Blog Applicaton
 
 
-![alt text](<assets/ecr_ecs.png>)
+![alt text](<assets/ecr-ecs.png>)
 
 
 Welcome to the complete ci/cd project, here we will delve into the CI/CD automated processes where every potential pull request will run a ci workflow, to check the code security, vulnerability scan, image scan etc.
