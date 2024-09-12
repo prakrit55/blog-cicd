@@ -17,7 +17,7 @@ const App: React.FC = () => {
         <nav>
           <ul>
             <li className="pio">
-              <Link to="/create-post" className="create-button">📃 Create Blog</Link>
+              <Link to="/create-post" className="create-button">📃Create Blog</Link>
             </li>
           </ul>
         </nav>
