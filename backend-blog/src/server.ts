@@ -15,7 +15,7 @@ app.use(express.json()); // Parse JSON request bodies
 // Routes
 // app.use('/api/posts', postRoutes);
 // Connect to MongoDB
-var uri = "mongodb+srv://prakrit55new:vL0mS2aZTZsUmzYX@cluster0.efaovxn.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+var uri = "mongodb+srv://prakritimandal:rAna120@@cluster0.aeupwkx.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 mongoose.connect(uri)
   .then(() => console.log("Connected to MongoDB... "))
